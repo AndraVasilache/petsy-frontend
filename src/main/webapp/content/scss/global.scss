@@ -15,6 +15,12 @@ h4 {
   font-weight: 300;
 }
 
+.box {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+}
+
 a:hover {
   /* make sure browsers use the pointer cursor for anchors, even with no href */
   cursor: pointer;
