@@ -39,17 +39,18 @@
           <p *ngIf="pet.name" class="card-text">{{ pet.name }} may be the pet for you!</p>
           <p *ngIf="pet.race" class="card-text">{{ pet.race }} is what you've been looking for!</p>
           <div class="btn-group">
-            <button type="submit" [routerLink]="['/pet', pet.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-              <fa-icon icon="eye"></fa-icon>
-              <span class="d-none d-md-inline">View</span>
-            </button>
-
             <button type="submit" [routerLink]="['/pet', pet.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
               <fa-icon icon="pencil-alt"></fa-icon>
-              <span class="d-none d-md-inline">Edit</span>
+              <span class="d-none d-md-inline">Buy</span>
             </button>
 
-            <button type="submit" (click)="delete(pet)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+            <button
+              *jhiHasAnyAuthority="'ROLE_ADMIN'"
+              type="submit"
+              (click)="delete(pet)"
+              class="btn btn-danger btn-sm"
+              data-cy="entityDeleteButton"
+            >
               <fa-icon icon="times"></fa-icon>
               <span class="d-none d-md-inline">Delete</span>
             </button>

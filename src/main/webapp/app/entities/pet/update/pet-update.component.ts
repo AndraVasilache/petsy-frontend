@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 
 import { PetFormService, PetFormGroup } from './pet-form.service';
 import { IPet } from '../pet.model';
 import { PetService } from '../service/pet.service';
 import { Category } from 'app/entities/enumerations/category.model';
+import { AccountService } from '../../../core/auth/account.service';
 
 @Component({
   selector: 'jhi-pet-update',
@@ -17,12 +18,21 @@ export class PetUpdateComponent implements OnInit {
   isSaving = false;
   pet: IPet | null = null;
   categoryValues = Object.keys(Category);
+  account: any;
 
   editForm: PetFormGroup = this.petFormService.createPetFormGroup();
 
-  constructor(protected petService: PetService, protected petFormService: PetFormService, protected activatedRoute: ActivatedRoute) {}
+  constructor(
+    protected petService: PetService,
+    protected petFormService: PetFormService,
+    protected activatedRoute: ActivatedRoute,
+    private accountService: AccountService
+  ) {}
 
   ngOnInit(): void {
+    this.account = this.accountService.getAuthenticationState().subscribe(account => {
+      this.account = account;
+    });
     this.activatedRoute.data.subscribe(({ pet }) => {
       this.pet = pet;
       if (pet) {
@@ -38,6 +48,7 @@ export class PetUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const pet = this.petFormService.getPet(this.editForm);
+    pet.owner = this.account.id;
     if (pet.id !== null) {
       this.subscribeToSaveResponse(this.petService.update(pet));
     } else {
@@ -65,7 +76,6 @@ export class PetUpdateComponent implements OnInit {
   }
 
   protected updateForm(pet: IPet): void {
-    this.pet = pet;
     this.petFormService.resetForm(this.editForm, pet);
   }
 }

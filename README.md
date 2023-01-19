@@ -1,4 +1,4 @@
-#Development
+Development
 
 This project uses [Node.js](https://nodejs.org/en/) for both development and production profiles. We use Node 16.11.1, but for optimal performance we recommend 14.17.6 or newer.
 Before you can build this project, you must install and/or configure the project's dependencies. You can do so by using the following command:

@@ -6,11 +6,6 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
-
         <div class="row mb-3">
           <label class="form-label" for="field_forSale">For Sale</label>
           <input type="checkbox" class="form-check" name="forSale" id="field_forSale" data-cy="forSale" formControlName="forSale" />
@@ -19,29 +14,47 @@
         <div class="row mb-3">
           <label class="form-label" for="field_category">Category</label>
           <select class="form-control" name="category" formControlName="category" id="field_category" data-cy="category">
-            <option [ngValue]="null"></option>
-            <option *ngFor="let category of categoryValues" [value]="category">category</option>
+            <option *ngFor="let category of categoryValues" [value]="category">{{ category }}</option>
           </select>
         </div>
 
         <div class="row mb-3">
           <label class="form-label" for="field_race">Race</label>
-          <input type="text" class="form-control" name="race" id="field_race" data-cy="race" formControlName="race" />
+          <input
+            type="text"
+            class="form-control"
+            name="race"
+            id="field_race"
+            data-cy="race"
+            formControlName="race"
+            [readonly]="editForm.controls.id.value !== null"
+          />
         </div>
 
         <div class="row mb-3">
           <label class="form-label" for="field_name">Name</label>
-          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_owner">Owner</label>
-          <input type="number" class="form-control" name="owner" id="field_owner" data-cy="owner" formControlName="owner" />
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            id="field_name"
+            data-cy="name"
+            formControlName="name"
+            [readonly]="editForm.controls.id.value !== null"
+          />
         </div>
 
         <div class="row mb-3">
           <label class="form-label" for="field_picture">Picture</label>
-          <input type="text" class="form-control" name="picture" id="field_picture" data-cy="picture" formControlName="picture" />
+          <input
+            type="text"
+            class="form-control"
+            name="picture"
+            id="field_picture"
+            data-cy="picture"
+            formControlName="picture"
+            [readonly]="editForm.controls.id.value !== null"
+          />
         </div>
       </div>
 
