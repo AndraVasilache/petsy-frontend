@@ -28,22 +28,28 @@
     <span>No Pets found</span>
   </div>
 
-  <div id="entities" *ngIf="pets && pets.length > 0" class="box">
+  <div id="entities" *ngIf="pets && pets.length > 0">
     <div *ngFor="let pet of pets; trackBy: trackId" data-cy="entityTable" class="box">
-      <div class="card" style="width: 18rem">
-        <img class="card-img-top" src="{{ pet.picture }}" alt="Pet image not available" />
+      <div class="card" style="width: 18rem; height: 35rem">
+        <img class="card-img-top" src="{{ pet.picture }}" style="height: 15rem" alt="Pet image not available" />
         <div class="card-body">
           <h5 *ngIf="pet.forSale" class="card-title">For Sale</h5>
           <h5 *ngIf="!pet.forSale" class="card-title">Just Bought</h5>
-          <p class="card-text">Looking for a {{ pet.category }}?</p>
-          <p *ngIf="pet.name" class="card-text">{{ pet.name }} may be the pet for you!</p>
-          <p *ngIf="pet.race" class="card-text">{{ pet.race }} is what you've been looking for!</p>
-          <div class="btn-group">
+          <div *ngIf="pet.forSale">
+            <p *ngIf="pet.category !== 'EXOTIC'" class="card-text">Looking for a {{ pet.category }}?</p>
+            <p *ngIf="pet.name" class="card-text">{{ pet.name }} may be the pet for you!</p>
+            <p *ngIf="pet.race" class="card-text">{{ pet.race }} could be what you've been looking for!</p>
             <button type="submit" [routerLink]="['/pet', pet.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
               <fa-icon icon="pencil-alt"></fa-icon>
               <span class="d-none d-md-inline">Buy</span>
             </button>
+          </div>
+          <div *ngIf="!pet.forSale">
+            <p class="card-text">Good news! This lovely {{ pet.category }} just got a forever home</p>
+            <p *ngIf="pet.name" class="card-text">{{ pet.name }} will miss their previous owner, but a new life awaits them!</p>
+          </div>
 
+          <div class="btn-group">
             <button
               *jhiHasAnyAuthority="'ROLE_ADMIN'"
               type="submit"

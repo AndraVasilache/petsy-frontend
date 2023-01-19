@@ -5,11 +5,9 @@
 
       <div>
         <jhi-alert-error></jhi-alert-error>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_forSale">For Sale</label>
-          <input type="checkbox" class="form-check" name="forSale" id="field_forSale" data-cy="forSale" formControlName="forSale" />
-        </div>
+        <!--        <div *ngIf="editForm.controls.id.value !== null">-->
+        <!--          <img class="card-img-top" src="{{ editForm.controls.picture.value}}}" alt="Pet image not available" />-->
+        <!--        </div>-->
 
         <div class="row mb-3">
           <label class="form-label" for="field_category">Category</label>
@@ -46,16 +44,16 @@
 
         <div class="row mb-3">
           <label class="form-label" for="field_picture">Picture</label>
-          <input
-            type="text"
-            class="form-control"
-            name="picture"
-            id="field_picture"
-            data-cy="picture"
-            formControlName="picture"
-            [readonly]="editForm.controls.id.value !== null"
-          />
+          <input type="text" class="form-control" name="picture" id="field_picture" data-cy="picture" formControlName="picture" />
         </div>
+      </div>
+
+      <div class="row mb-3">
+        <label *ngIf="editForm.controls.id.value === null" class="form-label" for="field_forSale">For Sale</label>
+        <label *ngIf="editForm.controls.id.value !== null" class="form-label" for="field_forSale"
+          >Click here to buy your pet and take it off the market!</label
+        >
+        <input type="checkbox" class="form-check" name="forSale" id="field_forSale" data-cy="forSale" formControlName="forSale" />
       </div>
 
       <div>

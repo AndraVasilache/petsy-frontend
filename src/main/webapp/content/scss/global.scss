@@ -16,8 +16,8 @@ h4 {
 }
 
 .box {
-  display: flex;
-  flex-direction: row;
+  display: inline-block;
+  //flex-direction: row;
   padding: 1rem;
 }
 
